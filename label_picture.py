@@ -12,7 +12,7 @@
                      |w:   上一张图片 
                      |s:   下一张图片 
                      |a:   重新选择图片                      
-## 作者：黄浩
+## 作者：yulongpo
 ## 日期：2017/02/14
 ## 版本：LabelPic 0.1.1
 '''
@@ -161,6 +161,7 @@ if __name__ == '__main__':
         elif key == ord('a'):
             print u'重新选择'
             file_path, pic_name = select_img_path()
+            index = all_pic_names.index(pic_name)
             cv2.destroyAllWindows()
             cv2.namedWindow(os.path.join(file_path, pic_name))
             cv2.setMouseCallback(os.path.join(file_path, pic_name), label_pic)
