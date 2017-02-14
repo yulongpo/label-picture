@@ -161,6 +161,7 @@ if __name__ == '__main__':
         elif key == ord('a'):
             print u'重新选择'
             file_path, pic_name = select_img_path()
+            all_pic_names = get_pic_names(file_path)
             index = all_pic_names.index(pic_name)
             cv2.destroyAllWindows()
             cv2.namedWindow(os.path.join(file_path, pic_name))
