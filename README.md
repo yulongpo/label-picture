@@ -1,8 +1,12 @@
 # label-picture
-### Get labels' position to make faster r-cnn samples
+### Get labels' position to make faster r-cnn samples 
+
+
 ### 制作 faster r-cnn 样本
 
-'''
+''' 
+
+
 。################# Label Picture ###################
 。## 使用方法：        
 。                     |先安装 pyqtgragh：pip install pyqygraph
