@@ -13,8 +13,8 @@
                      |s:   下一张图片 
                      |a:   重新选择图片                      
 ## 作者：yulongpo
-## 日期：2017/02/14
-## 版本：LabelPic 0.1.1
+## 日期：2017/02/15
+## 版本：LabelPic 0.1.2
 '''
 import numpy as np
 import cv2
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     u'                     |w:   上一张图片\n',\
     u'                     |s:   下一张图片\n',\
     u'                     |a:   重新选择图片\n', \
-    u'                     |ESC: 退出\n', '## LabelPic 0.1.1\n' 
+    u'                     |ESC: 退出\n', '## LabelPic 0.1.2\n' 
     file_path, pic_name = select_img_path()
     output_txt = select_output_file()
     output = open(output_txt, 'a')
