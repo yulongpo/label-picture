@@ -75,7 +75,7 @@ def label_pic(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
         ix, iy = x, y      
-    elif event == cv2.EVENT_MOUSEMOVE and flags == cv2.EVENT_FLAG_LBUTTON:
+    elif event == cv2.EVENT_MOUSEMOVE and flags == cv2.EVENT_FLAG_LBUTTON or flags == 33:
         if drawing == True:
 #            if mode == True:
             im = copy.deepcopy(img)
