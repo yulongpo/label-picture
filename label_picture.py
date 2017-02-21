@@ -64,7 +64,7 @@ def get_pic_names(path):
     for _, __, ___ in os.walk(path):
         for item in ___:
             a = len(item)
-            if item[a-3:] == 'jpg':
+            if item[a-3:] in ['jpg', 'JPG', 'PNG', 'png']:
                 pic_names.append(item)
     return pic_names
         
