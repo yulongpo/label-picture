@@ -2,7 +2,7 @@
 '''
 ################# Label Picture ###################
 ## 使用方法：        
-                     |先安装 pyqtgragh：pip install pyqygraph
+                     |先安装 pyqtgragh：pip install pyqtgraph
                      |修改 initialpath 到自己存储图片的路径
                      |修改 CLASSES 为自己的类别，运行label_picture.py
                      |先选择起始图片，再选择输出到的txt文档
