@@ -13,10 +13,8 @@
                      |s:   下一张图片 
                      |a:   重新选择图片                      
 ## 作者：yulongpo
-## 日期：2017/02/15
-## 版本：LabelPic 0.1.2
+## 日期：2017/03/01
 '''
-import numpy as np
 import cv2
 import os
 #import matplotlib.pyplot as plt
@@ -24,13 +22,15 @@ import copy
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtGui
 import tkFileDialog as TFD
+import shutil
 
 #class labal_picture(object):
 #    def __init__(self, ):
 key = cv2.waitKey(1) & 0xff   
  
 '''起始路径'''    
-initialpath = 'E:\\matlab\\data_gen\\im_data'#'G:/python/region_grasp'
+initialpath = 'D:/electro_trans'#'G:/python/region_grasp'
+label_img_path = os.path.join(initialpath, 'labeled_img')
 
 ix, iy = -1, -1
 drawing = False
@@ -39,7 +39,7 @@ output_info = ''
 
 '''标签编号'''
 CLASSES = ['__background__',
-           'label1', 'label2', 'label3']
+           'insulator', 'nest']
            
 pg.mkQApp()
 
@@ -67,7 +67,12 @@ def get_pic_names(path):
             if item[a-3:] in ['jpg', 'JPG', 'PNG', 'png']:
                 pic_names.append(item)
     return pic_names
-        
+
+#def min(x, y):
+#    return (x if x <= y else y)
+#def max(x, y):
+#    return (x if x >= y else y)     
+    
 def label_pic(event, x, y, flags, param):
     global key, index, file_path, pic_name, ix, iy, drawing
     global writing, output_info
@@ -79,18 +84,26 @@ def label_pic(event, x, y, flags, param):
         if drawing == True:
 #            if mode == True:
             im = copy.deepcopy(img)
+            im_row, im_col = im.shape[:2]
             cv2.rectangle(im, (ix, iy), (x, y), (0, 0, 255), 2)
 #            cv2.namedWindow(os.path.join(file_path, all_pic_names[index]))
             cv2.imshow(os.path.join(file_path, all_pic_names[index]), im)
     elif event == cv2.EVENT_LBUTTONUP:
         drawing == False
-        print ix, iy, x, y
+        print all_pic_names[index], max(0, min(ix, x)), max(0, min(iy, y)),\
+                min(im_col, max(ix, x)), min(im_row, max(iy, y))
     if event == cv2.EVENT_RBUTTONDOWN:
         label, ok = QtGui.QInputDialog.getInt(None, '输入标签', '标签编号')
         if ok:
-            output_info = all_pic_names[index] +  ' ' + CLASSES[label] + ' ' + str(ix) \
-                            + ' ' + str(iy) + ' ' + str(x) + ' ' + str(y) + '\n'
+            output_info = all_pic_names[index] +  ' ' + CLASSES[label] + ' ' + \
+            str(max(0, min(ix, x))) + ' ' + str(max(0, min(iy, y))) + ' ' \
+            + str(min(im_col, max(ix, x))) + ' '\
+            + str(min(im_row, max(iy, y))) + '\n' #防止坐标位置越界！！！
             output.write(output_info)
+            if not os.path.exists(os.path.join(label_img_path, all_pic_names[index])):
+                shutil.copyfile(os.path.join(file_path, all_pic_names[index]),
+                              os.path.join(label_img_path, all_pic_names[index]))
+                
 #            print 'WRITING!'
             
             
@@ -110,6 +123,9 @@ if __name__ == '__main__':
     u'                     |s:   下一张图片\n',\
     u'                     |a:   重新选择图片\n', \
     u'                     |ESC: 退出\n', '## LabelPic 0.1.2\n' 
+    if not os.path.exists(label_img_path):
+        os.makedirs(label_img_path)
+        
     file_path, pic_name = select_img_path()
     output_txt = select_output_file()
     output = open(output_txt, 'a')
