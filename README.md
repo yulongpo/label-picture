@@ -17,5 +17,5 @@ Get labels' position to make faster r-cnn samples
 。                     |a:   重新选择图片     
 。## 作者：yulongpo     
 。## 日期：2017/03/01       
-。## 版本：LabelPic for insulator & nest
+。## 版本：LabelPic for insulator & nest    
 '''
