@@ -33,6 +33,7 @@ initialpath = 'D:/electro_trans'#'G:/python/region_grasp'
 label_img_path = os.path.join(initialpath, 'labeled_img')
 
 ix, iy = -1, -1
+im_row, im_col = 0, 0
 drawing = False
 writing = False
 output_info = ''
@@ -75,7 +76,7 @@ def get_pic_names(path):
     
 def label_pic(event, x, y, flags, param):
     global key, index, file_path, pic_name, ix, iy, drawing
-    global writing, output_info
+    global writing, output_info, im_row, im_col
 #    mode = True
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
