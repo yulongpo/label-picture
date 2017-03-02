@@ -115,16 +115,17 @@ if __name__ == '__main__':
      
     print '################# Label Picture ###################\n',\
     u'##  使用方法：\n',\
-    u'                     |修改 initialpath 到自己存储图片的路径\n',\
-    u'                     |修改CLASSES为自己的类别，运行label_picture.py\n',\
-    u'                     |先选择起始图片，再选择输出到的txt文档\n',\
-    u'                     |鼠标左键单击按下开始绘制图框，\n',\
-    u'                     |松开绘制完成，右键单击确认图框位置，\n',\
-    u'                     |输入标签编号，完成一个目标信息记录。\n',\
-    u'                     |w:   上一张图片\n',\
-    u'                     |s:   下一张图片\n',\
-    u'                     |a:   重新选择图片\n', \
-    u'                     |ESC: 退出\n', '## LabelPic 0.1.2\n' 
+    u'\t\t|修改 initialpath 到自己存储图片的路径\n',\
+    u'\t\t|修改CLASSES为自己的类别，运行label_picture.py\n',\
+    u'\t\t|先选择起始图片，再选择输出到的txt文档\n',\
+    u'\t\t|鼠标左键单击按下开始绘制图框，\n',\
+    u'\t\t|松开绘制完成，右键单击确认图框位置，\n',\
+    u'\t\t|输入标签编号，完成一个目标信息记录。\n',\
+    u'\t\t|w:   上一张图片\n',\
+    u'\t\t|s:   下一张图片\n',\
+    u'\t\t|a:   重新选择图片\n', \
+    u'\t\t|ESC: 退出\n', '## LabelPic for insulator & nest\n' 
+    
     if not os.path.exists(label_img_path):
         os.makedirs(label_img_path)
         
