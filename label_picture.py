@@ -16,7 +16,7 @@
 ## 日期：2017/02/15
 ## 版本：LabelPic 0.1.2
 '''
-import numpy as np
+
 import cv2
 import os
 #import matplotlib.pyplot as plt
@@ -33,6 +33,7 @@ key = cv2.waitKey(1) & 0xff
 initialpath = 'E:\\matlab\\data_gen\\im_data'#'G:/python/region_grasp'
 
 ix, iy = -1, -1
+im_row, im_col = 0, 0
 drawing = False
 writing = False
 output_info = ''
@@ -70,7 +71,7 @@ def get_pic_names(path):
         
 def label_pic(event, x, y, flags, param):
     global key, index, file_path, pic_name, ix, iy, drawing
-    global writing, output_info
+    global writing, output_info, im_row, im_col
 #    mode = True
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
@@ -79,18 +80,23 @@ def label_pic(event, x, y, flags, param):
         if drawing == True:
 #            if mode == True:
             im = copy.deepcopy(img)
+            im_row, im_col = im.shape[:2]
             cv2.rectangle(im, (ix, iy), (x, y), (0, 0, 255), 2)
 #            cv2.namedWindow(os.path.join(file_path, all_pic_names[index]))
             cv2.imshow(os.path.join(file_path, all_pic_names[index]), im)
     elif event == cv2.EVENT_LBUTTONUP:
         drawing == False
-        print ix, iy, x, y
+        print all_pic_names[index], max(0, min(ix, x)), max(0, min(iy, y)),\
+                min(im_col, max(ix, x)), min(im_row, max(iy, y))
     if event == cv2.EVENT_RBUTTONDOWN:
         label, ok = QtGui.QInputDialog.getInt(None, '输入标签', '标签编号')
         if ok:
-            output_info = all_pic_names[index] +  ' ' + CLASSES[label] + ' ' + str(ix) \
-                            + ' ' + str(iy) + ' ' + str(x) + ' ' + str(y) + '\n'
+            output_info = all_pic_names[index] +  ' ' + CLASSES[label] + ' ' + \
+            str(max(0, min(ix, x))) + ' ' + str(max(0, min(iy, y))) + ' ' \
+            + str(min(im_col, max(ix, x))) + ' '\
+            + str(min(im_row, max(iy, y))) + '\n' #防止坐标位置越界！！！
             output.write(output_info)
+            print('--OK!--[ {:s} ]--'.format(CLASSES[label]))
 #            print 'WRITING!'
             
             
