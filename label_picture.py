@@ -13,7 +13,7 @@
                      |s:   下一张图片 
                      |a:   重新选择图片                      
 ## 作者：yulongpo
-## 日期：2017/03/01
+## 日期：2017/03/02
 '''
 import cv2
 import os
@@ -100,6 +100,7 @@ def label_pic(event, x, y, flags, param):
             str(max(0, min(ix, x))) + ' ' + str(max(0, min(iy, y))) + ' ' \
             + str(min(im_col, max(ix, x))) + ' '\
             + str(min(im_row, max(iy, y))) + '\n' #防止坐标位置越界！！！
+            print('--OK!--[ {:s} ]--'.format(CLASSES[label]))
             output.write(output_info)
             if not os.path.exists(os.path.join(label_img_path, all_pic_names[index])):
                 shutil.copyfile(os.path.join(file_path, all_pic_names[index]),
