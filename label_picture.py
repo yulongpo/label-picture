@@ -13,7 +13,7 @@
                      |s:   下一张图片 
                      |a:   重新选择图片                      
 ## 作者：yulongpo
-## 日期：2017/03/01
+## 日期：2017/03/02
 ## 版本：LabelPic 0.1.3
 '''
 
@@ -86,8 +86,13 @@ def label_pic(event, x, y, flags, param):
             cv2.imshow(os.path.join(file_path, all_pic_names[index]), im)
     elif event == cv2.EVENT_LBUTTONUP:
         drawing == False
-        print all_pic_names[index], max(0, min(ix, x)), max(0, min(iy, y)),\
-                min(im_col, max(ix, x)), min(im_row, max(iy, y))
+        if ix == x:
+            im = copy.deepcopy(img)
+            cv2.imshow(os.path.join(file_path, all_pic_names[index]), im)
+            print '!!! MOUSE NOT MOVED!!!'
+        else:
+            print all_pic_names[index], max(0, min(ix, x)), max(0, min(iy, y)),\
+                    min(im_col, max(ix, x)), min(im_row, max(iy, y))
     if event == cv2.EVENT_RBUTTONDOWN:
         label, ok = QtGui.QInputDialog.getInt(None, '输入标签', '标签编号')
         if ok:
