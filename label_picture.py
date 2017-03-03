@@ -13,7 +13,7 @@
                      |s:   下一张图片 
                      |a:   重新选择图片                      
 ## 作者：yulongpo
-## 日期：2017/03/02
+## 日期：2017/03/03
 '''
 import cv2
 import os
@@ -33,6 +33,7 @@ initialpath = 'D:/electro_trans'#'G:/python/region_grasp'
 label_img_path = os.path.join(initialpath, 'labeled_img')
 
 ix, iy = -1, -1
+x_end, y_end = 0, 0
 im_row, im_col = 0, 0
 drawing = False
 writing = False
@@ -77,6 +78,7 @@ def get_pic_names(path):
 def label_pic(event, x, y, flags, param):
     global key, index, file_path, pic_name, ix, iy, drawing
     global writing, output_info, im_row, im_col
+    global x_end, y_end
 #    mode = True
     if event == cv2.EVENT_LBUTTONDOWN:
         drawing = True
@@ -91,15 +93,21 @@ def label_pic(event, x, y, flags, param):
             cv2.imshow(os.path.join(file_path, all_pic_names[index]), im)
     elif event == cv2.EVENT_LBUTTONUP:
         drawing == False
-        print all_pic_names[index], max(0, min(ix, x)), max(0, min(iy, y)),\
-                min(im_col, max(ix, x)), min(im_row, max(iy, y))
-    if event == cv2.EVENT_RBUTTONDOWN:
+        x_end, y_end = x, y
+        if ix == x:
+            im = copy.deepcopy(img)
+            cv2.imshow(os.path.join(file_path, all_pic_names[index]), im)
+            print '!!! MOUSE NOT MOVED!!!'
+        else:
+            print all_pic_names[index], max(0, min(ix, x_end)), max(0, min(iy, y_end)),\
+                    min(im_col, max(ix, x_end)), min(im_row, max(iy, y_end_end))
+    if event == cv2.EVENT_RBUTTONDOWN and ix != x_end:
         label, ok = QtGui.QInputDialog.getInt(None, '输入标签', '标签编号')
         if ok:
             output_info = all_pic_names[index] +  ' ' + CLASSES[label] + ' ' + \
-            str(max(0, min(ix, x))) + ' ' + str(max(0, min(iy, y))) + ' ' \
-            + str(min(im_col, max(ix, x))) + ' '\
-            + str(min(im_row, max(iy, y))) + '\n' #防止坐标位置越界！！！
+            str(max(0, min(ix, x_end))) + ' ' + str(max(0, min(iy, y_end))) + ' ' \
+            + str(min(im_col, max(ix, x_end))) + ' '\
+            + str(min(im_row, max(iy, y_end))) + '\n' #防止坐标位置越界！！！
             print('--OK!--[ {:s} ]--'.format(CLASSES[label]))
             output.write(output_info)
             if not os.path.exists(os.path.join(label_img_path, all_pic_names[index])):
