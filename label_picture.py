@@ -97,9 +97,9 @@ def label_pic(event, x, y, flags, param):
         label, ok = QtGui.QInputDialog.getInt(None, '输入标签', '标签编号')
         if ok:
             output_info = all_pic_names[index] +  ' ' + CLASSES[label] + ' ' + \
-            str(max(0, min(ix, x))) + ' ' + str(max(0, min(iy, y))) + ' ' \
-            + str(min(im_col, max(ix, x))) + ' '\
-            + str(min(im_row, max(iy, y))) + '\n' #防止坐标位置越界！！！
+                        str(max(0, min(ix, x))) + ' ' + str(max(0, min(iy, y))) + ' ' \
+                        + str(min(im_col, max(ix, x))) + ' '\
+                        + str(min(im_row, max(iy, y))) + '\n' #防止坐标位置越界！！！
             output.write(output_info)
             print('--OK!--[ {:s} ]--'.format(CLASSES[label]))
 #            print 'WRITING!'
