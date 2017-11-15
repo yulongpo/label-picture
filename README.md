@@ -1,5 +1,5 @@
 # label-picture   
-### This is a simple & easy-use tool to get the bounding box's position in the picture, and the you can use the positions to make actual labels for detection training. 
+### This is a simple & easy-use tool to get the bounding box's position in the picture, and then you can use the positions to make actual labels for detection training. 
 ### Simply using Python 2.7 and OpenCV, you can use it both on Windows and Linux.
 
 ### 目标检测样本制作工具
